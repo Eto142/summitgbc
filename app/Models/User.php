@@ -20,6 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'dob',
+        'country',
+        'account_number',
+        'account_type',
         'password',
     ];
 
@@ -45,4 +50,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function deposits()
+{
+    return $this->hasMany(Deposit::class);
+}
 }
