@@ -312,13 +312,53 @@
                     </div>
                 </div>
 
-                  <div class="form-group">
-                    <label for="currency">Currency</label>
-                    <input type="text" name="currency" value="{{ old('currency') }}" required id="currency" placeholder="Your currency" autofocus>
-                    <div class="error-message">
-                        @error('currency') {{ $message }} @enderror
-                    </div>
-                </div>
+                 <div class="form-group">
+    <label for="currency">Currency Symbol</label>
+    <select name="currency" id="currency" required>
+        <option value="" disabled selected>Select a currency symbol</option>
+        <!-- Major Currencies -->
+        <option value="$" @if(old('currency') == '$') selected @endif>$ (US Dollar)</option>
+        <option value="€" @if(old('currency') == '€') selected @endif>€ (Euro)</option>
+        <option value="£" @if(old('currency') == '£') selected @endif>£ (British Pound)</option>
+        <option value="¥" @if(old('currency') == '¥') selected @endif>¥ (Japanese Yen/Chinese Yuan)</option>
+        <option value="A$" @if(old('currency') == 'A$') selected @endif>A$ (Australian Dollar)</option>
+        <option value="C$" @if(old('currency') == 'C$') selected @endif>C$ (Canadian Dollar)</option>
+        <option value="CHF" @if(old('currency') == 'CHF') selected @endif>CHF (Swiss Franc)</option>
+        
+        <!-- Asian Currencies -->
+        <option value="₹" @if(old('currency') == '₹') selected @endif>₹ (Indian Rupee)</option>
+        <option value="₩" @if(old('currency') == '₩') selected @endif>₩ (South Korean Won)</option>
+        <option value="₱" @if(old('currency') == '₱') selected @endif>₱ (Philippine Peso)</option>
+        <option value="RM" @if(old('currency') == 'RM') selected @endif>RM (Malaysian Ringgit)</option>
+        <option value="฿" @if(old('currency') == '฿') selected @endif>฿ (Thai Baht)</option>
+        <option value="₫" @if(old('currency') == '₫') selected @endif>₫ (Vietnamese Dong)</option>
+        
+        <!-- Middle East & Africa -->
+        <option value="د.إ" @if(old('currency') == 'د.إ') selected @endif>د.إ (UAE Dirham)</option>
+        <option value="₪" @if(old('currency') == '₪') selected @endif>₪ (Israeli Shekel)</option>
+        <option value="﷼" @if(old('currency') == '﷼') selected @endif>﷼ (Saudi Riyal)</option>
+        <option value="R" @if(old('currency') == 'R') selected @endif>R (South African Rand)</option>
+        <option value="₦" @if(old('currency') == '₦') selected @endif>₦ (Nigerian Naira)</option>
+        <option value="ج.م" @if(old('currency') == 'ج.م') selected @endif>ج.م (Egyptian Pound)</option>
+        
+        <!-- Latin America -->
+        <option value="R$" @if(old('currency') == 'R$') selected @endif>R$ (Brazilian Real)</option>
+        <option value="Mex$" @if(old('currency') == 'Mex$') selected @endif>Mex$ (Mexican Peso)</option>
+        <option value="S/" @if(old('currency') == 'S/') selected @endif>S/ (Peruvian Sol)</option>
+        <option value="COL$" @if(old('currency') == 'COL$') selected @endif>COL$ (Colombian Peso)</option>
+        <option value="ARS$" @if(old('currency') == 'ARS$') selected @endif>ARS$ (Argentine Peso)</option>
+        
+        <!-- Europe (Non-Euro) -->
+        <option value="kr" @if(old('currency') == 'kr') selected @endif>kr (Swedish/Norwegian/Danish Krone)</option>
+        <option value="zł" @if(old('currency') == 'zł') selected @endif>zł (Polish Złoty)</option>
+        <option value="Ft" @if(old('currency') == 'Ft') selected @endif>Ft (Hungarian Forint)</option>
+        <option value="Kč" @if(old('currency') == 'Kč') selected @endif>Kč (Czech Koruna)</option>
+        <option value="₺" @if(old('currency') == '₺') selected @endif>₺ (Turkish Lira)</option>
+    </select>
+    <div class="error-message">
+        @error('currency') {{ $message }} @enderror
+    </div>
+</div>
 
                 <div class="form-group">
                     <label for="dob">Date of birth</label>
@@ -327,6 +367,25 @@
                         @error('dob') {{ $message }} @enderror
                     </div>
                 </div>
+
+                <div class="form-group">
+    <label for="transaction_pin">Transaction PIN</label>
+    <input 
+        type="password" 
+        name="transaction_pin" 
+        value="{{ old('transaction_pin') }}" 
+        required 
+        id="transaction_pin" 
+        placeholder="Enter 4-6 digit PIN" 
+        maxlength="6"
+        pattern="[0-9]{4,6}"
+        title="Please enter a 4 to 6 digit numeric PIN"
+        autocomplete="off"
+    >
+    <div class="error-message">
+        @error('transaction_pin') {{ $message }} @enderror
+    </div>
+</div>
 
                 <div class="form-group">
                     <label for="password">Create Password</label>

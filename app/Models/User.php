@@ -24,6 +24,7 @@ class User extends Authenticatable
         'dob',
         'country',
         'account_number',
+        'transaction_pin',
         'account_type',
         'password',
     ];
