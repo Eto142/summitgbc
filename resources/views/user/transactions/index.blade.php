@@ -61,6 +61,13 @@
     <!-- end main content section -->
 </div>
 
-              
+                <script src="{{asset('dashboard/assets/js/alpine-collaspe.min.js')}}"></script>
+    <script src="{{asset('dashboard/assets/js/alpine-persist.min.js')}}"></script>
+    <script defer src="{{asset('dashboard/assets/js/alpine-ui.min.js')}}"></script>
+    <script defer src="{{asset('dashboard/assets/js/alpine-focus.min.js')}}"></script>
+    <script defer src="{{asset('dashboard/assets/js/alpine.min.js')}}"></script>
+    <script src="{{asset('dashboard/assets/js/custom.js')}}"></script>
+    <script defer src="{{asset('dashboard/assets/js/apexcharts.js')}}"></script>
+    <script src="{{asset('dashboard/assets/js/dayjs.min.js')}}"></script>
 
              @include('user.footer')

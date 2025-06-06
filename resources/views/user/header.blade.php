@@ -401,7 +401,7 @@ body{
                     <div class="h-full bg-white dark:bg-[#0e1726]">
                         <div class="flex items-center justify-between px-4 py-3">
                             <a href="index.html" class="main-logo flex shrink-0 items-center">
-                                                              <img src="../home/assets/img/black-logo.png" alt="logo" class="img-responsive">
+                                                              <img src="{{ asset('dashboard/assets/img/black-logo.png') }}" width ="150px" alt="logo" class="img-responsive">
                                 
                             </a>
                             <a
