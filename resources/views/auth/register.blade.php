@@ -4,36 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prime Summit Bank Online - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #0056b3;
+            --primary-hover: #004494;
             --secondary-color: #003366;
             --accent-color: #00a8e8;
             --light-color: #f8f9fa;
             --dark-color: #212529;
             --success-color: #28a745;
+            --warning-color: #ffc107;
             --error-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             color: var(--dark-color);
+            line-height: 1.6;
         }
         
         .bank-header {
-            background-color: var(--secondary-color);
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
             color: white;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
         }
         
         .bank-logo {
@@ -43,14 +52,28 @@
             align-items: center;
         }
         
-        .bank-logo svg {
-            margin-right: 10px;
+        .bank-logo img {
+            height: 40px;
+            width: auto;
         }
         
         .login-link {
             color: white;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-link:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .login-link i {
+            margin-right: 8px;
         }
         
         .main-container {
@@ -59,107 +82,178 @@
             align-items: center;
             flex-grow: 1;
             padding: 2rem;
+            background: url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 51, 102, 0.85);
         }
         
         .register-container {
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             padding: 2.5rem;
-            border-top: 4px solid var(--primary-color);
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.5s ease;
         }
         
-
-        .form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #333;
-}
-
-.form-group input[type="text"],
-.form-group select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input[type="text"]:focus,
-.form-group select:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-.form-group select {
-    appearance: none;
-    background: url("data:image/svg+xml;utf8,<svg fill='%23333' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
-    background-color: white;
-    background-size: 16px;
-}
-
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .register-container h2 {
             color: var(--secondary-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             font-size: 1.8rem;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .register-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
         }
         
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
         
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--secondary-color);
+            font-size: 0.95rem;
         }
         
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: var(--transition);
             box-sizing: border-box;
+            background-color: #f9f9f9;
         }
         
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: var(--accent-color);
             outline: none;
             box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.2);
+            background-color: white;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+        }
+        
+        .toggle-password:hover {
+            color: var(--primary-color);
         }
         
         .password-strength {
-            height: 4px;
+            height: 5px;
             background-color: #eee;
             margin-top: 0.5rem;
             border-radius: 2px;
             overflow: hidden;
+            position: relative;
         }
         
-        .password-strength-bar {
+        .password-strength::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
             height: 100%;
             width: 0%;
             background-color: var(--error-color);
             transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .password-strength[data-strength="weak"]::before {
+            width: 25%;
+            background-color: var(--error-color);
+        }
+        
+        .password-strength[data-strength="medium"]::before {
+            width: 50%;
+            background-color: var(--warning-color);
+        }
+        
+        .password-strength[data-strength="good"]::before {
+            width: 75%;
+            background-color: #17a2b8;
+        }
+        
+        .password-strength[data-strength="strong"]::before {
+            width: 100%;
+            background-color: var(--success-color);
+        }
+        
+        .password-strength-text {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .password-strength-text.weak {
+            color: var(--error-color);
+        }
+        
+        .password-strength-text.medium {
+            color: var(--warning-color);
+        }
+        
+        .password-strength-text.good {
+            color: #17a2b8;
+        }
+        
+        .password-strength-text.strong {
+            color: var(--success-color);
         }
         
         .error-message {
@@ -167,157 +261,285 @@
             font-size: 0.85rem;
             margin-top: 0.5rem;
             min-height: 1rem;
+            font-weight: 500;
         }
         
         .btn-primary {
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 1.5rem;
             font-size: 1rem;
-            font-weight: 500;
-            border-radius: 4px;
+            font-weight: 600;
+            border-radius: var(--border-radius);
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            transition: var(--transition);
             margin-top: 0.5rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
         
         .btn-primary:hover {
-            background-color: var(--secondary-color);
+            background: linear-gradient(to right, var(--primary-hover), var(--accent-color));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .login-prompt {
             text-align: center;
             margin-top: 1.5rem;
             color: #666;
+            font-size: 0.95rem;
         }
         
         .login-prompt a {
             color: var(--primary-color);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
         }
         
-        .login-prompt a:hover {
-            text-decoration: underline;
+        .login-prompt a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .login-prompt a:hover::after {
+            width: 100%;
         }
         
         .security-tips {
             margin-top: 2rem;
-            padding: 1rem;
+            padding: 1.25rem;
             background-color: #f8f9fa;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             font-size: 0.85rem;
+            border-left: 4px solid var(--accent-color);
         }
         
         .security-tips h3 {
             margin-top: 0;
             color: var(--secondary-color);
             font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .security-tips h3 i {
+            margin-right: 8px;
+            color: var(--accent-color);
         }
         
         .security-tips ul {
-            padding-left: 1.2rem;
+            padding-left: 1.5rem;
             margin-bottom: 0;
         }
         
         .security-tips li {
             margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .security-tips li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
         }
         
         footer {
             background-color: var(--secondary-color);
             color: white;
             text-align: center;
-            padding: 1rem;
+            padding: 1.25rem;
             font-size: 0.85rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+        }
+        
+        /* Form grid layout */
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        /* Custom select styling */
+        .form-group select {
+            appearance: none;
+            background: url("data:image/svg+xml;utf8,<svg fill='%23333' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center/16px;
+            background-color: #f9f9f9;
+            padding-right: 36px;
+        }
+        
+        /* Date input styling */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background: transparent;
+            bottom: 0;
+            color: transparent;
+            cursor: pointer;
+            height: auto;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: auto;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
         
         @media (max-width: 576px) {
             .register-container {
-                padding: 1.5rem;
+                padding: 1.75rem;
             }
             
             .bank-header {
-                flex-direction: column;
-                text-align: center;
-                padding: 1rem;
+                padding: 0.75rem 1rem;
             }
             
-            .bank-logo {
-                margin-bottom: 0.5rem;
+            .main-container {
+                padding: 1rem;
             }
         }
+        
+        /* Animation for form elements */
+        .form-group {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Add delay to form group animations */
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+        .form-group:nth-child(9) { animation-delay: 0.9s; }
+        .form-group:nth-child(10) { animation-delay: 1s; }
     </style>
 </head>
 <body>
     <header class="bank-header">
         <div class="bank-logo">
-              <img src="assets/img/logo.png" alt="logo" width="150px">
+            <img src="assets/img/logo.png" alt="Prime Summit Bank" width="150">
         </div>
-        <a href="{{ route('login') }}" class="login-link">Sign In</a>
+        <a href="{{ route('login') }}" class="login-link">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+        </a>
     </header>
     
     <div class="main-container">
         <div class="register-container">
             <h2>Create Your Online Banking Account</h2>
             
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('register') }}" id="registrationForm">
                 @csrf
 
-                <div class="form-group">
-                    <label for="name">Full Legal Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required maxlength="100" id="name" placeholder="As it appears on your ID">
-                    <div class="error-message">
-                        @error('name') {{ $message }} @enderror
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" name="name" value="{{ old('name') }}" required maxlength="100" id="name" placeholder="As it appears on your ID">
+                            <div class="error-message">
+                                @error('name') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" value="{{ old('email') }}" required id="email" placeholder="Your email address">
+                            <div class="error-message">
+                                @error('email') {{ $message }} @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required id="email" placeholder="Your email address" autofocus>
-                    <div class="error-message">
-                        @error('email') {{ $message }} @enderror
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" name="country" value="{{ old('country') }}" required id="country" placeholder="Your country of residence">
+                            <div class="error-message">
+                                @error('country') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" name="phone" value="{{ old('phone') }}" required id="phone" placeholder="+1 (123) 456-7890">
+                            <div class="error-message">
+                                @error('phone') {{ $message }} @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="country">Country</label>
-                    <input type="text" name="country" value="{{ old('country') }}" required id="country" placeholder="Your Country" autofocus>
-                    <div class="error-message">
-                        @error('country') {{ $message }} @enderror
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="account_type">Account Type</label>
+                            <select name="account_type" id="account_type" required>
+                                <option value="">Select Account Type</option>
+                                <option value="savings" {{ old('account_type') == 'savings' ? 'selected' : '' }}>Savings Account</option>
+                                <option value="checking" {{ old('account_type') == 'checking' ? 'selected' : '' }}>Checking Account</option>
+                                <option value="business" {{ old('account_type') == 'business' ? 'selected' : '' }}>Business Account</option>
+                            </select>
+                            <div class="error-message">
+                                @error('account_type') {{ $message }} @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-
-                <div class="form-group">
-    <label for="account_type">Account Type</label>
-    <select name="account_type" id="account_type" required>
-        <option value="">Select Account Type</option>
-        <option value="savings" {{ old('account_type') == 'savings' ? 'selected' : '' }}>Savings</option>
-        <option value="checking" {{ old('account_type') == 'checking' ? 'selected' : '' }}>Checking</option>
-    </select>
-    <div class="error-message">
-        @error('account_type') {{ $message }} @enderror
-    </div>
-</div>
-
-
-                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" name="phone" value="{{ old('phone') }}" required id="phone" placeholder="Your Phone" autofocus>
-                    <div class="error-message">
-                        @error('phone') {{ $message }} @enderror
-                    </div>
-                </div>
-
-                 <div class="form-group">
-    <label for="currency">Currency Symbol</label>
-    <select name="currency" id="currency" required>
-        <option value="" disabled selected>Select a currency symbol</option>
-        <!-- Major Currencies -->
-        <option value="$" @if(old('currency') == '$') selected @endif>$ (US Dollar)</option>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="currency">Preferred Currency</label>
+                            <select name="currency" id="currency" required>
+                                 <option value="$" @if(old('currency') == '$') selected @endif>$ (US Dollar)</option>
         <option value="€" @if(old('currency') == '€') selected @endif>€ (Euro)</option>
         <option value="£" @if(old('currency') == '£') selected @endif>£ (British Pound)</option>
         <option value="¥" @if(old('currency') == '¥') selected @endif>¥ (Japanese Yen/Chinese Yuan)</option>
@@ -354,45 +576,61 @@
         <option value="Ft" @if(old('currency') == 'Ft') selected @endif>Ft (Hungarian Forint)</option>
         <option value="Kč" @if(old('currency') == 'Kč') selected @endif>Kč (Czech Koruna)</option>
         <option value="₺" @if(old('currency') == '₺') selected @endif>₺ (Turkish Lira)</option>
-    </select>
-    <div class="error-message">
-        @error('currency') {{ $message }} @enderror
-    </div>
-</div>
+                            </select>
+                            <div class="error-message">
+                                @error('currency') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="form-group">
-                    <label for="dob">Date of birth</label>
-                    <input type="date" name="dob" value="{{ old('dob') }}" required id="dob" placeholder="" autofocus>
-                    <div class="error-message">
-                        @error('dob') {{ $message }} @enderror
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" name="dob" value="{{ old('dob') }}" required id="dob" max="{{ date('Y-m-d', strtotime('-18 years')) }}">
+                            <div class="error-message">
+                                @error('dob') {{ $message }} @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="transaction_pin">Transaction PIN</label>
+                            <div class="password-container">
+                                <input 
+                                    type="password" 
+                                    name="transaction_pin" 
+                                    value="{{ old('transaction_pin') }}" 
+                                    required 
+                                    id="transaction_pin" 
+                                    placeholder="Enter 4-6 digit PIN" 
+                                    maxlength="6"
+                                    pattern="[0-9]{4,6}"
+                                    title="Please enter a 4 to 6 digit numeric PIN"
+                                    autocomplete="off"
+                                >
+                                <span class="toggle-password" data-target="transaction_pin">
+                                    <i class="far fa-eye"></i>
+                                </span>
+                            </div>
+                            <div class="error-message">
+                                @error('transaction_pin') {{ $message }} @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-    <label for="transaction_pin">Transaction PIN</label>
-    <input 
-        type="password" 
-        name="transaction_pin" 
-        value="{{ old('transaction_pin') }}" 
-        required 
-        id="transaction_pin" 
-        placeholder="Enter 4-6 digit PIN" 
-        maxlength="6"
-        pattern="[0-9]{4,6}"
-        title="Please enter a 4 to 6 digit numeric PIN"
-        autocomplete="off"
-    >
-    <div class="error-message">
-        @error('transaction_pin') {{ $message }} @enderror
-    </div>
-</div>
-
-                <div class="form-group">
                     <label for="password">Create Password</label>
-                    <input type="password" name="password" autocomplete="new-password" required id="password" placeholder="Minimum 8 characters">
-                    <div class="password-strength">
-                        <div class="password-strength-bar" id="password-strength-bar"></div>
+                    <div class="password-container">
+                        <input type="password" name="password" autocomplete="new-password" required id="password" placeholder="Minimum 8 characters">
+                        <span class="toggle-password" data-target="password">
+                            <i class="far fa-eye"></i>
+                        </span>
                     </div>
+                    <div class="password-strength" id="password-strength" data-strength="weak"></div>
+                    <div class="password-strength-text" id="password-strength-text">Password Strength: Weak</div>
                     <div class="error-message">
                         @error('password') {{ $message }} @enderror
                     </div>
@@ -400,13 +638,22 @@
 
                 <div class="form-group">
                     <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" name="password_confirmation" required id="password_confirmation" placeholder="Re-enter your password">
+                    <div class="password-container">
+                        <input type="password" name="password_confirmation" required id="password_confirmation" placeholder="Re-enter your password">
+                        <span class="toggle-password" data-target="password_confirmation">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
                     <div class="error-message">
                         @error('password_confirmation') {{ $message }} @enderror
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary">Register for Online Banking</button>
+               
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-plus"></i> Register for Online Banking
+                </button>
             </form>
             
             <div class="login-prompt">
@@ -414,24 +661,26 @@
             </div>
             
             <div class="security-tips">
-                <h3>Security Tips:</h3>
+                <h3><i class="fas fa-shield-alt"></i> Security Tips:</h3>
                 <ul>
-                    <li>Never share your password with anyone</li>
-                    <li>Use a combination of letters, numbers and special characters</li>
-                    <li>Avoid using personal information in your password</li>
+                    <li>Never share your password or PIN with anyone, including bank employees</li>
+                    <li>Create a strong password with uppercase, lowercase, numbers and special characters</li>
+                    <li>Avoid using personal information like birthdays or names in your password</li>
+                    <li>Prime Summit Bank will never ask for your password via email or phone</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Copyright &copy; 2025 Prime Summit Bank. All rights reserved. | Member FDIC</p>
+        <p>Copyright &copy; 2025 Prime Summit Bank. All rights reserved. | Member FDIC | Equal Housing Lender</p>
     </footer>
 
     <script>
         // Password strength indicator
         const passwordInput = document.getElementById('password');
-        const strengthBar = document.getElementById('password-strength-bar');
+        const passwordStrength = document.getElementById('password-strength');
+        const passwordStrengthText = document.getElementById('password-strength-text');
         
         passwordInput.addEventListener('input', function() {
             const password = passwordInput.value;
@@ -450,33 +699,78 @@
             // Check for special chars
             if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
             
-            // Update strength bar
-            let width = 0;
-            let color = '';
+            // Update strength indicator
+            let strengthLevel = '';
+            let strengthText = '';
+            let textClass = '';
             
-            switch(strength) {
-                case 0:
-                case 1:
-                    width = 25;
-                    color = 'var(--error-color)';
-                    break;
-                case 2:
-                    width = 50;
-                    color = '#ffc107';
-                    break;
-                case 3:
-                    width = 75;
-                    color = '#17a2b8';
-                    break;
-                case 4:
-                case 5:
-                    width = 100;
-                    color = 'var(--success-color)';
-                    break;
+            if (password.length === 0) {
+                strengthLevel = '';
+                strengthText = '';
+            } else if (strength <= 1) {
+                strengthLevel = 'weak';
+                strengthText = 'Weak';
+                textClass = 'weak';
+            } else if (strength <= 3) {
+                strengthLevel = 'medium';
+                strengthText = 'Medium';
+                textClass = 'medium';
+            } else if (strength === 4) {
+                strengthLevel = 'good';
+                strengthText = 'Good';
+                textClass = 'good';
+            } else {
+                strengthLevel = 'strong';
+                strengthText = 'Strong';
+                textClass = 'strong';
             }
             
-            strengthBar.style.width = width + '%';
-            strengthBar.style.backgroundColor = color;
+            passwordStrength.setAttribute('data-strength', strengthLevel);
+            passwordStrengthText.textContent = password.length > 0 ? `Password Strength: ${strengthText}` : '';
+            passwordStrengthText.className = `password-strength-text ${textClass}`;
+        });
+        
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Form validation
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password_confirmation').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                document.getElementById('password_confirmation').nextElementSibling.textContent = 'Passwords do not match';
+                document.getElementById('password_confirmation').focus();
+            }
+            
+            // Additional validation can be added here
+        });
+        
+        // Date picker max date (18 years ago)
+        document.getElementById('dob').max = new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0];
+        
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         });
     </script>
 </body>
