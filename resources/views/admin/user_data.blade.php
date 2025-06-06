@@ -13,10 +13,15 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ $userProfile->name }}</li>
                 </ol>
             </nav>
+
+            
         </div>
         <div class="d-flex flex-wrap gap-2">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">
-                <i class="fas fa-plus-circle me-1"></i> Add Transaction
+                <i class="fas fa-plus-circle me-1"></i> Credit User
+            </button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#debitTransactionModal">
+                <i class="fas fa-plus-circle me-1"></i>Debit User
             </button>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addDepositModal">
                 <i class="fas fa-money-bill-wave me-1"></i> Add Deposit
@@ -29,6 +34,39 @@
             </button>
         </div>
     </div>
+    @if(session('status') || session('message'))
+    <div class="alert-container">
+        <div class="alert alert-{{ session('status') ? 'success' : 'danger' }} alert-dismissible fade show" role="alert">
+            <div class="alert-content">
+                <div class="alert-icon">
+                    @if(session('status'))
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    @endif
+                </div>
+                <div class="alert-text">
+                    {{ session('status') ?? session('message') }}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="alert-progress"></div>
+        </div>
+    </div>
+@endif
+
 
     <div class="row">
         <!-- Left Column - Profile Card -->
@@ -299,21 +337,44 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    @if($deposit->status == '0')
-                                                    <button class="btn btn-sm btn-success me-1" data-bs-toggle="tooltip" title="Approve">
+
+
+                                                     <form action="{{ route('admin.approve-deposit', $deposit->id) }}" method="POST" class="me-2">
+                                            @csrf
+																	<input type="hidden" name="status" value="1">
+																	<input type="hidden" name="user_id" value="{{$userProfile->id}}">
+																	<input type="hidden" name="email" value="{{$userProfile->email}}">
+																	<input type="hidden" name="amount" value="{{$deposit->amount}}">
+																	<input type="hidden" name="deposit_type" value="{{$deposit->deposit_type}}">
+																	<button class="btn btn-sm btn-success me-1" data-bs-toggle="tooltip" title="Approve">
                                                         <i class="fas fa-check"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Decline">
+																</form>
+				
+				
+															</td>
+															<td>
+																   <form action="{{ route('admin.decline-deposit', $deposit->id) }}" method="POST" class="me-2">
+                                            @csrf
+																	<input type="hidden" name="status" value="2">
+																	<input type="hidden" name="user_id" value="{{$userProfile->id}}">
+																	<input type="hidden" name="email" value="{{$userProfile->email}}">
+																	<input type="hidden" name="amount" value="{{$deposit->amount}}">
+																	<input type="hidden" name="deposit_type" value="{{$deposit->deposit_type}}">
+																	 <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Decline">
                                                         <i class="fas fa-times"></i>
                                                     </button>
-                                                    @else
-                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                    @endif
+																</form>
+															</td>
+														</tr>
+														@endforeach
+
+
+
+                                                
                                                 </td>
                                             </tr>
-                                            @endforeach
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -430,25 +491,23 @@
     </div>
 </div>
 
-<!-- Add Transaction Modal -->
+<!-- Credit User Modal -->
 <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Transaction</h5>
+                <h5 class="modal-title">Credit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
+            <form action="{{ route('admin.credit.user') }}" method="POST">
                 @csrf
+                <input type="hidden" name="email" value="{{$userProfile->email}}"/>
+				<input type="hidden" name="name" value="{{$userProfile->name}}"/>
+				<input type="hidden" name="id" value="{{$userProfile->id}}"/>
+				<input type="hidden" name="balance" value="{{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) }}"/>
+				<input type="hidden" name="a_number" value="{{$userProfile->account_number}}"/>
+				<input type="hidden" name="currency" value="{{$userProfile->currency}}"/>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Transaction Type</label>
-                        <select class="form-select" name="type" required>
-                            <option value="">Select Type</option>
-                            <option value="credit">Credit</option>
-                            <option value="debit">Debit</option>
-                        </select>
-                    </div>
                     <div class="mb-3">
                         <label class="form-label">Amount</label>
                         <input type="number" class="form-control" name="amount" placeholder="Enter amount" required>
@@ -457,18 +516,46 @@
                         <label class="form-label">Description</label>
                         <textarea class="form-control" name="description" rows="3" placeholder="Transaction description"></textarea>
                     </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Credit User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Debit User Modal -->
+<div class="modal fade" id="debitTransactionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Debit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.debit.user') }}" method="POST">
+                @csrf
+                <input type="hidden" name="email" value="{{$userProfile->email}}"/>
+                <input type="hidden" name="name" value="{{$userProfile->name}}"/>
+                <input type="hidden" name="id" value="{{$userProfile->id}}"/>
+                <input type="hidden" name="balance" value="{{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) }}"/>
+                <input type="hidden" name="a_number" value="{{$userProfile->account_number}}"/>
+                <input type="hidden" name="currency" value="{{$userProfile->currency}}"/>
+                <div class="modal-body">
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="status" id="transactionStatus" checked>
-                            <label class="form-check-label" for="transactionStatus">
-                                Mark as completed
-                            </label>
-                        </div>
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control" name="amount" placeholder="Enter amount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3" placeholder="Transaction description"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    <button type="submit" class="btn btn-danger">Debit User</button>
                 </div>
             </form>
         </div>
@@ -648,5 +735,132 @@
         })
     })
 </script>
+
+<style>
+
+    /* Alert System */
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 15px;
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
+
+.alert-icon {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.alert-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.alert-text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 12px;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+.btn-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+.alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: progressBar 5s linear forwards;
+}
+
+@keyframes progressBar {
+    0% { width: 100%; }
+    100% { width: 0%; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .alert-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .alert-content {
+        padding: 12px;
+    }
+    
+    .alert-text {
+        font-size: 13px;
+    }
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss alerts after 5 seconds
+    const alerts = document.querySelectorAll('.alert');
+    
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+            alert.style.transform = 'translateX(100%)';
+            alert.style.opacity = '0';
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 500);
+        }, 5000);
+        
+        // Pause animation on hover
+        alert.addEventListener('mouseenter', () => {
+            alert.querySelector('.alert-progress').style.animationPlayState = 'paused';
+        });
+        
+        alert.addEventListener('mouseleave', () => {
+            alert.querySelector('.alert-progress').style.animationPlayState = 'running';
+        });
+    });
+});
+</script>
+
 
 @include('admin.footer')

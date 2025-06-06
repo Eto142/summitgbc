@@ -335,18 +335,23 @@
                 <span>Manage Users</span>
             </a>
             
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.transfers') }}" class="nav-link">
+                <i class="fas fa-piggy-bank"></i>
+                <span>Transfers</span>
+            </a>
+
+              {{-- <a href="#" class="nav-link">
                 <i class="fas fa-piggy-bank"></i>
                 <span>Accounts</span>
+            </a> --}}
+            
+
+                <a href="{{ route('admin.deposits') }}" class="nav-link">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span> Deposits</span>
             </a>
             
-            <a href="#" class="nav-link">
-                <i class="fas fa-exchange-alt"></i>
-                <span>Transactions</span>
-               
-            </a>
-            
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.loans') }}" class="nav-link">
                 <i class="fas fa-hand-holding-usd"></i>
                 <span>Loans</span>
             </a>
@@ -356,15 +361,17 @@
                 <span>Cards</span>
             </a>
             
-            <a href="#" class="nav-link">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span> Deposits</span>
+              <a href="{{ route('admin.transactions') }}" class="nav-link">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+               
             </a>
+        
             
-            <a href="#" class="nav-link">
+            {{-- <a href="#" class="nav-link">
                 <i class="fas fa-chart-line"></i>
                 <span>Reports</span>
-            </a>
+            </a> --}}
             
           <!-- Logout Link with Hidden Form -->
 <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();">

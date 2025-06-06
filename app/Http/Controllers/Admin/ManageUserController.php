@@ -90,4 +90,16 @@ class ManageUserController extends Controller
     return view('admin.user_data', $data);
 }
 
+
+
+        public function deleteUser($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
+
+
+        return back()->with('status', 'User deleted successfully');
+}
+
+
 }

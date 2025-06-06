@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use App\Models\Loan;
+use App\Models\Transaction;
 use App\Models\Transfer;
 use App\Models\User;
 use Carbon\Carbon;
@@ -38,4 +39,5 @@ class AdminController extends Controller
         ));
      
     }
+
 }
