@@ -9,6 +9,6 @@ class CardController extends Controller
 {
       public function index()
     {
-        return view('user.card');
+        return view('user.card.index');
     }
 }
