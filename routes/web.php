@@ -73,10 +73,10 @@ Route::post('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout
 Route::prefix('user')->as('user.')->middleware('auth')->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('home'); // becomes 'user.home'
     Route::get('/alltransactions', [DashboardController::class, 'Alltransactions'])->name('transactions'); // becomes 'user.transactions'
-     Route::get('/alert', [DashboardController::class, 'Alert'])->name('alert'); // becomes 'user.alert'
-      Route::get('/setting', [DashboardController::class, 'Setting'])->name('setting'); // becomes 'user.setting'
-       Route::get('/help', [DashboardController::class, 'Help'])->name('help'); // becomes 'user.help'
-
+    Route::get('/alert', [DashboardController::class, 'Alert'])->name('alert'); // becomes 'user.alert'
+    Route::get('/setting', [DashboardController::class, 'Setting'])->name('setting'); // becomes 'user.setting'
+    Route::get('/help', [DashboardController::class, 'Help'])->name('help'); // becomes 'user.help'
+    Route::post('/update-setting', [DashboardController::class, 'updateSettings'])->name('settings');
 
     // Cards
     Route::prefix('cards')->name('cards.')->group(function () {

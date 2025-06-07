@@ -23,6 +23,39 @@
             </div>
         </div>
         
+         @if(session('status') || session('message'))
+    <div class="alert-container">
+        <div class="alert alert-{{ session('status') ? 'success' : 'danger' }} alert-dismissible fade show" role="alert">
+            <div class="alert-content">
+                <div class="alert-icon">
+                    @if(session('status'))
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    @endif
+                </div>
+                <div class="alert-text">
+                    {{ session('status') ?? session('message') }}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="alert-progress"></div>
+        </div>
+    </div>
+@endif
+
       <div class="card-body p-0">
     <div class="table-responsive">
         <table class="table table-hover mb-0" id="users-table">
@@ -41,8 +74,8 @@
                     <td>#CUS-{{ str_pad($user->id, 5, '0', STR_PAD_LEFT) }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <img src="{{ $user->profile_image ?? 'https://randomuser.me/api/portraits/men/'.rand(1,100).'.jpg' }}" 
-                                 class="rounded-circle me-2" width="32" height="32">
+                            {{-- <img src="{{ $user->profile_image ?? 'https://randomuser.me/api/portraits/men/'.rand(1,100).'.jpg' }}" 
+                                 class="rounded-circle me-2" width="32" height="32"> --}}
                             <div>
                                 <div class="fw-semibold">{{ $user->name }}</div>
                                 <small class="text-muted d-block d-md-none">{{ $user->email }}</small>
@@ -64,10 +97,13 @@
                                 <i class="fas fa-envelope"></i>
                                 <span class="d-none d-lg-inline"> Mail</span>
                             </button>
-                            <button type="button" class="btn btn-outline-danger" title="Delete">
-                                <i class="fas fa-trash"></i>
-                                <span class="d-none d-lg-inline"> Delete</span>
-                            </button>
+                             <form action="{{route('admin.delete', $user->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-danger" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{ $user->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                         </div>
                     </td>
                 </tr>

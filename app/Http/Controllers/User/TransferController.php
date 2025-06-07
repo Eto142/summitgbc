@@ -31,6 +31,13 @@ public function Transfer()
 
 public function UserTransfer(Request $request)
 {
+
+    
+     $transaction_pin = $request->input('transaction_pin');
+        if ($transaction_pin != Auth::user()->transaction_pin) {
+        return back()->with('error', ' Incorrect Transaction Pin number!');
+        }  
+        
     $user = Auth::user();
 
     $validated = $request->validate([

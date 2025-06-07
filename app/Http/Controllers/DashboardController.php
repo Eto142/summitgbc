@@ -36,7 +36,7 @@ class DashboardController extends Controller
      $data['user_transfer']= Transfer::where('user_id',Auth::user()->id)->sum('amount');
     $data['user_credit']= Credit::where('user_id',Auth::user()->id)->where('status','1')->sum('amount');
     $data['user_debit']= Debit::where('user_id',Auth::user()->id)->where('status','1')->sum('amount');
-    $data['balance'] = $data['user_deposits'] + $data['credit_transfers']+ $data['user_loans']- $data['debit_transfers'];
+    $data['balance'] = $data['credit_transfers'] - $data['debit_transfers'];
        
     return view('user.home', array_merge(compact('RecentTransactions', 'RecentActivity'), $data));
 
@@ -66,6 +66,29 @@ class DashboardController extends Controller
     {
         return view('user.setting'); // Load the dashboard view
     }
+
+   public function updateSettings(Request $request){
+    $request->validate([
+   'name' => 'string|max:255',
+   'kin' => 'string|max:255',
+   'email' => 'string|unique:users,email' .auth()->id,
+   'country' => 'string|max:255',
+   'address' => 'string|max:255',
+   'phone' => 'phone',
+    ]);
+
+   $user = auth()->user;
+   $user->name = $request->input('name');
+   $user->kin = $request->input('kin');
+   $user->email = $request->input('email');
+   $user->country = $request->input('country');
+   $user->address = $request->input('address');
+   $user->phone = $request->input('phone');
+   $user->save();
+
+    return redirect()->back()->with('success', 'Profile updated successfully!');
+}
+
 
 
 

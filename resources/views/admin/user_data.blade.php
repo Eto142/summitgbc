@@ -26,10 +26,10 @@
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addDepositModal">
                 <i class="fas fa-money-bill-wave me-1"></i> Add Deposit
             </button>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addLoanModal">
+            {{-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addLoanModal">
                 <i class="fas fa-hand-holding-usd me-1"></i> Add Loan
-            </button>
-            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#clearAccountModal">
+            </button> --}}
+            <button class="btn btn-info">
                 <i class="fas fa-broom me-1"></i> Clear Account
             </button>
         </div>
@@ -97,9 +97,15 @@
                         <a href="#" class="btn btn-sm btn-outline-secondary">
                             <i class="fas fa-edit me-1"></i> Edit
                         </a>
-                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                            <i class="fas fa-trash me-1"></i> Delete
-                        </button>
+                        
+                        
+                         <form action="{{route('admin.delete', $userProfile->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-danger" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{ $userProfile->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                     </div>
                     
                     <hr>
@@ -141,14 +147,14 @@
                     </div>
                     
                     <!-- Net Balance -->
-                    <div class="alert alert-{{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) >= 0 ? 'success' : 'danger' }} mb-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold">Net Balance:</span>
-                            <span class="fw-bold fs-5">
-                                {{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) }}
-                            </span>
-                        </div>
-                    </div>
+                   <div class="bg-light p-2 rounded mb-0">
+    <div class="d-flex justify-content-between align-items-center">
+        <span class="fw-bold">Net Balance:</span>
+        <span class="fw-bold fs-5">
+            {{ number_format(($credit_transfers) - ($debit_transfers), 2) }}
+        </span>
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -189,13 +195,13 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label text-muted small">Last Login</label>
+                            {{-- <label class="form-label text-muted small">Last Login</label> --}}
                             {{-- <div class="fw-semibold">
                                 {{ $userProfile->last_login_at ? \Carbon\Carbon::parse($userProfile->last_login_at)->format('M d, Y h:i A') : 'Never logged in' }}
                             </div> --}}
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label text-muted small">IP Address</label>
+                            {{-- <label class="form-label text-muted small">IP Address</label> --}}
                             {{-- <div class="fw-semibold">
                                 {{ $userProfile->last_login_ip ?? 'N/A' }}
                             </div> --}}
@@ -504,7 +510,7 @@
                 <input type="hidden" name="email" value="{{$userProfile->email}}"/>
 				<input type="hidden" name="name" value="{{$userProfile->name}}"/>
 				<input type="hidden" name="id" value="{{$userProfile->id}}"/>
-				<input type="hidden" name="balance" value="{{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) }}"/>
+				<input type="hidden" name="balance" value="{{ number_format(($credit_transfers) - ($debit_transfers), 2) }}"/>
 				<input type="hidden" name="a_number" value="{{$userProfile->account_number}}"/>
 				<input type="hidden" name="currency" value="{{$userProfile->currency}}"/>
                 <div class="modal-body">
@@ -540,7 +546,7 @@
                 <input type="hidden" name="email" value="{{$userProfile->email}}"/>
                 <input type="hidden" name="name" value="{{$userProfile->name}}"/>
                 <input type="hidden" name="id" value="{{$userProfile->id}}"/>
-                <input type="hidden" name="balance" value="{{ ($credit_transfers + $user_deposits) - ($debit_transfers + $user_loans) }}"/>
+                <input type="hidden" name="balance" value="{{ number_format(($credit_transfers) - ($debit_transfers), 2) }}"/>
                 <input type="hidden" name="a_number" value="{{$userProfile->account_number}}"/>
                 <input type="hidden" name="currency" value="{{$userProfile->currency}}"/>
                 <div class="modal-body">
@@ -577,29 +583,12 @@
                         <label class="form-label">Amount</label>
                         <input type="number" class="form-control" name="amount" placeholder="Enter deposit amount" required>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Payment Method</label>
-                        <select class="form-select" name="method" required>
-                            <option value="">Select Method</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                            <option value="credit_card">Credit Card</option>
-                            <option value="cash">Cash</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" name="date">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Reference/Note</label>
-                        <input type="text" class="form-control" name="reference" placeholder="Enter reference or note">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="status" id="depositStatus" checked>
-                            <label class="form-check-label" for="depositStatus">
-                                Mark as approved
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success">Add Deposit</button>
@@ -610,77 +599,40 @@
 </div>
 
 <!-- Add Loan Modal -->
-<div class="modal fade" id="addLoanModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addLoanModal" tabindex="-1" aria-labelledby="addLoanModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Loan</h5>
+                <h5 class="modal-title" id="addLoanModalLabel">Add New Loan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
-                @csrf
-                <div class="modal-body">
+            <div class="modal-body">
+                <form id="loanForm">
                     <div class="mb-3">
-                        <label class="form-label">Loan Amount</label>
-                        <input type="number" class="form-control" name="amount" placeholder="Enter loan amount" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Interest Rate (%)</label>
-                        <input type="number" step="0.01" class="form-control" name="interest_rate" placeholder="Enter interest rate" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Due Date</label>
-                        <input type="date" class="form-control" name="due_date">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="status" id="loanStatus" checked>
-                            <label class="form-check-label" for="loanStatus">
-                                Mark as approved
-                            </label>
+                        <label for="loanAmount" class="form-label">Loan Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="loanAmount" placeholder="Enter loan amount" step="0.01" min="0" required>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Add Loan</button>
-                </div>
-            </form>
+                    <div class="mb-3">
+                        <label for="loanDate" class="form-label">Loan Date</label>
+                        <input type="date" class="form-control" id="loanDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loanNotes" class="form-label">Notes (Optional)</label>
+                        <textarea class="form-control" id="loanNotes" rows="3" placeholder="Any additional notes about the loan"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" id="submitLoan">Submit Loan</button>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Clear Account Modal -->
-<div class="modal fade" id="clearAccountModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Clear User Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="alert alert-warning">
-                        <i class="fas fa-exclamation-triangle me-2"></i> This action will reset all financial records for this user.
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Confirm Action</label>
-                        <input type="text" class="form-control" name="confirmation" placeholder="Type 'CLEAR' to confirm" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Reason (Optional)</label>
-                        <textarea class="form-control" name="reason" rows="3" placeholder="Enter reason for clearing account"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Clear Account</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Delete User Modal -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">

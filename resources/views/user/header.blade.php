@@ -400,7 +400,7 @@ body{
                 >
                     <div class="h-full bg-white dark:bg-[#0e1726]">
                         <div class="flex items-center justify-between px-4 py-3">
-                            <a href="index.html" class="main-logo flex shrink-0 items-center">
+                            <a href="{{ route('user.home') }}" class="main-logo flex shrink-0 items-center">
                                                               <img src="{{ asset('dashboard/assets/img/black-logo.png') }}" width ="150px" alt="logo" class="img-responsive">
                                 
                             </a>
@@ -739,7 +739,7 @@ body{
                                         <span
                                             ><img
                                                 class="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-                                                src="../../cp-access/en/pics/765-default-avatar.png"
+                                                src="{{asset('default-avatar.png') }}"
                                                     alt="image"
                                         /></span>
                                     </a>
@@ -753,22 +753,22 @@ body{
                                         <li>
                                             <div class="flex items-center px-4 py-4">
                                                 <div class="flex-none">
-                                                    <img class="h-10 w-10 rounded-md object-cover" src="../../ccAdmin/en/pics/765-default-avatar.png"
+                                                    <img class="h-10 w-10 rounded-md object-cover" src="{{asset('default-avatar.png') }}"
                                                     alt="image" />
                                                 </div>
                                                 <div class="truncate ltr:pl-4 rtl:pr-4">
                                                     <h4 class="text-base">
-                                                         yo                                                    </h4>
+                                                         {{ Auth::user()->name }}                                                   </h4>
                                                     <a
                                                         class="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white"
                                                         href="javascript:;"
-                                                        >egod1422@gmail.com</a
+                                                        >{{ Auth::user()->email }}</a
                                                     >
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="setting.php" class="dark:hover:text-white" @click="toggle">
+                                            <a href="{{ route('user.setting') }}" class="dark:hover:text-white" @click="toggle">
                                                 <svg
                                                     class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2"
                                                     width="18"
@@ -788,7 +788,7 @@ body{
                                                 Profile</a
                                             >
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="apps-mailbox.php" class="dark:hover:text-white" @click="toggle">
                                                 <svg
                                                     class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2"
@@ -813,7 +813,7 @@ body{
                                                 </svg>
                                                 Inbox</a
                                             >
-                                        </li>
+                                        </li> --}}
                                         
                                         <li class="border-t border-white-light dark:border-white-light/10">
     <form method="POST" action="{{ route('user.logout') }}">

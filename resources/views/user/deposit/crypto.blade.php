@@ -42,7 +42,7 @@
             <!-- Deposit Form Section -->
             <div class="panel">
                 <div class="mb-6 border-b border-[#ebedf2] p-4 dark:border-[#191e3a]">
-                    <h3 class="text-center text-2xl font-bold text-primary">Transfer to Bank Account</h3>
+                    <h3 class="text-center text-2xl font-bold text-primary">Deposit to Bank Account</h3>
                     <div class="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
                         Complete the form below to make a crypto deposit
                     </div>
@@ -93,6 +93,22 @@
                             Rates are updated in real-time
                         </div>
                     </div>
+
+                    
+                      <br><br>
+                                           
+                                           
+                                           <div>
+                                        <div class="mb-1.5 font-semibold">Transaction Pin</div>
+                                        <div class="relative flex">
+                                            <input
+                                            name="transaction_pin" type="number" placeholder="" class="form-input ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0"/>
+                                            
+                                            <div x-data="dropdown" @click.outside="open = false" class="dropdown">
+                                                <div class="flex cursor-pointer items-center justify-center gap-1 rounded-none border bg-[#f1f2f3] px-3 py-2 font-semibold ltr:rounded-r-md rtl:rounded-l-md dark:border-[#253b5c] dark:bg-[#1b2e4b]" @click="toggle"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                     
                     <!-- Submit Button -->
                     <div class="mt-8 text-center">

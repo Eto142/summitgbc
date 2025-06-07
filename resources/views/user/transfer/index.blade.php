@@ -160,6 +160,16 @@
                                    placeholder="SWIFT/BIC code"
                                    class="form-input" />
                         </div>
+
+                         <!-- Swift Code -->
+                        <div>
+                            <div class="mb-1.5 font-semibold">Transaction Pin</div>
+                            <input name="transaction_pin"
+                                   type="text"
+                                   placeholder="Transaction Pin"
+                                   class="form-input" />
+                        </div>
+                    </div>
                         
                         <button type="submit" class="btn btn-primary self-end">Next</button>
                     </div>

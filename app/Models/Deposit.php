@@ -12,6 +12,7 @@ class Deposit extends Model
     protected $fillable = [
         'user_id',
         'amount',
+        'transaction_id',
         'front_check',
         'back_check',
         'crypto_type',
