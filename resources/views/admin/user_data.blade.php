@@ -84,6 +84,7 @@
                     <p class="text-muted mb-3">{{ $userProfile->email }}</p>
                       <p class="text-muted mb-3">Account Number:{{ $userProfile->account_number }}</p>
                         <p class="text-muted mb-3">Account Type:{{ $userProfile->account_type }}</p>
+                          <p class="text-muted mb-3">Transaction Pin:{{ $userProfile->transaction_pin }}</p>
                     
                     <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
                         <a href="mailto:{{ $userProfile->email }}" class="btn btn-sm btn-outline-primary">
@@ -97,6 +98,7 @@
                         <a href="#" class="btn btn-sm btn-outline-secondary">
                             <i class="fas fa-edit me-1"></i> Edit
                         </a>
+                        
                         
                         
                          <form action="{{route('admin.delete', $userProfile->id) }}" method="POST" class="d-inline">
