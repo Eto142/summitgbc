@@ -80,10 +80,10 @@
                         <h3 class="text-base font-medium">Total Balance</h3>
                         <i class="fas fa-wallet text-xl opacity-80"></i>
                     </div>
-                    <h2 class="text-2xl font-bold mb-1">${{ number_format($balance, 2) }}</h2>
+                    <h2 class="text-2xl font-bold mb-1">{{ Auth::user()->currency}}{{ number_format($balance, 2) }}</h2>
                     <div class="flex items-center text-blue-100">
                         <i class="fas fa-arrow-up mr-1"></i>
-                        <span class="text-xs">2.5% from last month</span>
+                        <span class="text-xs">{{ Auth::user()->account_number}}</span>
                     </div>
                 </div>
                 <div class="p-4 grid grid-cols-2 gap-3">
@@ -92,14 +92,14 @@
                             <span class="text-gray-600 dark:text-gray-300 text-xs">Income</span>
                             <i class="fas fa-arrow-up text-green-500 text-sm"></i>
                         </div>
-                        <div class="text-lg font-semibold">${{ $credit_transfers }}</div>
+                        <div class="text-lg font-semibold">{{ Auth::user()->currency}}{{ $credit_transfers }}</div>
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                         <div class="flex justify-between items-center mb-1">
                             <span class="text-gray-600 dark:text-gray-300 text-xs">Expenses</span>
                             <i class="fas fa-arrow-down text-red-500 text-sm"></i>
                         </div>
-                        <div class="text-lg font-semibold">${{ $debit_transfers }}</div>
+                        <div class="text-lg font-semibold">{{ Auth::user()->currency}}{{ $debit_transfers }}</div>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                                 <p class="text-xs text-gray-500">•••• •••• •••• {{ substr(Auth::user()->account_number, -4) }}</p>
                             </div>
                         </div>
-                        <span class="font-semibold text-sm">$8,742.35</span>
+                        <span class="font-semibold text-sm">{{ Auth::user()->currency}}{{ number_format($balance, 2) }}</span>
                     </div>
                     <button class="w-full py-2 px-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg text-sm font-medium transition">
                         <i class="fas fa-plus mr-1"></i> Open New Account
@@ -333,22 +333,33 @@
         <!-- Quick Actions for Mobile -->
         <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg p-3 border-t border-gray-200 dark:border-gray-700">
             <div class="flex justify-around">
-                <a href="#" class="flex flex-col items-center text-blue-600 dark:text-blue-400">
+                <a href="{{ route('user.home') }}" class="flex flex-col items-center text-blue-600 dark:text-blue-400">
                     <i class="fas fa-home text-lg mb-1"></i>
                     <span class="text-xs">Home</span>
                 </a>
-                <a href="#" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
+                <a href="{{ route('user.transfer.index') }}" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
                     <i class="fas fa-exchange-alt text-lg mb-1"></i>
                     <span class="text-xs">Transfer</span>
                 </a>
-                <a href="#" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
+                <a href="{{ route('user.cards.index') }}" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
                     <i class="fas fa-credit-card text-lg mb-1"></i>
                     <span class="text-xs">Cards</span>
                 </a>
-                <a href="#" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
+                <a href="{{ route('user.setting') }}" class="flex flex-col items-center text-gray-600 dark:text-gray-400">
                     <i class="fas fa-user text-lg mb-1"></i>
                     <span class="text-xs">Profile</span>
                 </a>
+
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+   class="flex flex-col items-center text-gray-600 dark:text-gray-400">
+    <i class="fas fa-sign-out-alt text-lg mb-1"></i>
+    <span class="text-xs">Logout</span>
+</a>
+
+<form id="logout-form" action="{{ route('user.logout') }}" method="POST" class="hidden">
+    @csrf
+</form>
+
             </div>
         </div>
     </main>
@@ -356,7 +367,7 @@
     <!-- Footer -->
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4">
         <div class="container mx-auto px-4 text-center text-sm text-gray-600 dark:text-gray-400">
-            © <span id="footer-year">2024</span>. Prime Summit Bank. All rights reserved.
+            © <span id="footer-year">2025</span>. Prime Summit Bank. All rights reserved.
         </div>
     </footer>
 

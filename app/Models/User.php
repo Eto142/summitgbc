@@ -23,10 +23,12 @@ class User extends Authenticatable
         'phone',
         'dob',
         'country',
+         'currency',
         'account_number',
         'transaction_pin',
         'account_type',
         'password',
+        'show_password',
     ];
 
     /**

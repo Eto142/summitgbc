@@ -469,37 +469,7 @@ body{
                                             </div>
                                         </a>
                                     </li>
-                                      <li class="nav-item">
-                                        <a href="{{ route('user.transaction.index') }}" class="group">
-                                            <div class="flex items-center">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.5" d="M16 4.00195C18.175 4.01406 19.3529 4.11051 20.1213 4.87889C21 5.75757 21 7.17179 21 10.0002V16.0002C21 18.8286 21 20.2429 20.1213 21.1215C19.2426 22.0002 17.8284 22.0002 15 22.0002H9C6.17157 22.0002 4.75736 22.0002 3.87868 21.1215C3 20.2429 3 18.8286 3 16.0002V10.0002C3 7.17179 3 5.75757 3.87868 4.87889C4.64706 4.11051 5.82497 4.01406 8 4.00195" stroke="currentColor" stroke-width="1.5"></path>
-                                                <path d="M8 14H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M7 10.5H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M9 17.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M8 3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V4.5C16 5.32843 15.3284 6 14.5 6H9.5C8.67157 6 8 5.32843 8 4.5V3.5Z" stroke="currentColor" stroke-width="1.5"></path>
-                                            </svg>
-                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Transactions</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                     <li class="nav-item">
-                                        <a href="{{ route('user.bill.index') }}" class="group">
-                                            <div class="flex items-center">
-                                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3 22V12C3 10.1144 3 9.17157 3.58579 8.58579C4.17157 8 5.11438 8 7 8C8.88562 8 9.82843 8 10.4142 8.58579C11 9.17157 11 10.1144 11 12" stroke="currentColor" stroke-width="1.5"></path>
-                                                <path d="M17 22V16C17 14.1144 17 13.1716 16.4142 12.5858C15.8284 12 14.8856 12 13 12H11C9.11438 12 8.17157 12 7.58579 12.5858C7 13.1716 7 14.1144 7 16V22" stroke="currentColor" stroke-width="1.5"></path>
-                                                <path d="M21 21.9999V7.77195C21 6.4311 21 5.76068 20.6439 5.24676C20.2877 4.73283 19.66 4.49743 18.4045 4.02663C15.9492 3.10591 14.7216 2.64555 13.8608 3.2421C13 3.83864 13 5.14974 13 7.77195V11.9999" stroke="currentColor" stroke-width="1.5"></path>
-                                                <path d="M4 8V6.5C4 5.55719 4 5.08579 4.29289 4.79289C4.58579 4.5 5.05719 4.5 6 4.5H8C8.94281 4.5 9.41421 4.5 9.70711 4.79289C10 5.08579 10 5.55719 10 6.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M7 4V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M22 22L2 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M10 15H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                <path d="M10 18H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                            </svg>
-                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Bill Payments</span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                      
                                      <li class="nav-item">
                                         <a href="{{ route('user.transfer.index') }}" class="group">
                                             <div class="flex items-center">
@@ -581,7 +551,38 @@ body{
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                             </svg>
-                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Loan Information</span>
+                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Apply for Loan</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.transaction.index') }}" class="group">
+                                            <div class="flex items-center">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.5" d="M16 4.00195C18.175 4.01406 19.3529 4.11051 20.1213 4.87889C21 5.75757 21 7.17179 21 10.0002V16.0002C21 18.8286 21 20.2429 20.1213 21.1215C19.2426 22.0002 17.8284 22.0002 15 22.0002H9C6.17157 22.0002 4.75736 22.0002 3.87868 21.1215C3 20.2429 3 18.8286 3 16.0002V10.0002C3 7.17179 3 5.75757 3.87868 4.87889C4.64706 4.11051 5.82497 4.01406 8 4.00195" stroke="currentColor" stroke-width="1.5"></path>
+                                                <path d="M8 14H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M7 10.5H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M9 17.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M8 3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V4.5C16 5.32843 15.3284 6 14.5 6H9.5C8.67157 6 8 5.32843 8 4.5V3.5Z" stroke="currentColor" stroke-width="1.5"></path>
+                                            </svg>
+                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Transactions</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                     <li class="nav-item">
+                                        <a href="{{ route('user.bill.index') }}" class="group">
+                                            <div class="flex items-center">
+                                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 22V12C3 10.1144 3 9.17157 3.58579 8.58579C4.17157 8 5.11438 8 7 8C8.88562 8 9.82843 8 10.4142 8.58579C11 9.17157 11 10.1144 11 12" stroke="currentColor" stroke-width="1.5"></path>
+                                                <path d="M17 22V16C17 14.1144 17 13.1716 16.4142 12.5858C15.8284 12 14.8856 12 13 12H11C9.11438 12 8.17157 12 7.58579 12.5858C7 13.1716 7 14.1144 7 16V22" stroke="currentColor" stroke-width="1.5"></path>
+                                                <path d="M21 21.9999V7.77195C21 6.4311 21 5.76068 20.6439 5.24676C20.2877 4.73283 19.66 4.49743 18.4045 4.02663C15.9492 3.10591 14.7216 2.64555 13.8608 3.2421C13 3.83864 13 5.14974 13 7.77195V11.9999" stroke="currentColor" stroke-width="1.5"></path>
+                                                <path d="M4 8V6.5C4 5.55719 4 5.08579 4.29289 4.79289C4.58579 4.5 5.05719 4.5 6 4.5H8C8.94281 4.5 9.41421 4.5 9.70711 4.79289C10 5.08579 10 5.55719 10 6.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M7 4V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M22 22L2 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M10 15H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M10 18H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                            </svg>
+                                                <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Bill Payments</span>
                                             </div>
                                         </a>
                                     </li>
@@ -681,7 +682,20 @@ body{
                                             </div>
                                         </a>
                                     </li>
-                                    
+
+                                     <li class="nav-item">
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="group">
+        <div class="flex items-center">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+            <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">Logout</span>
+        </div>
+    </a>
+
+    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" class="hidden">
+        @csrf
+    </form>
+</li>
+
                                     
                                     
                                     

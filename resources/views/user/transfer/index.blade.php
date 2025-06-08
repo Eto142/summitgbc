@@ -41,140 +41,123 @@
         });
     </script>
 @endif
-            <div class="panel flex-1 p-0">
-                <form action="{{ route('user.transfer.create') }}" method="POST">
-                    @csrf
-                    <div class="flex-wrap items-center border-b border-[#ebedf2] p-4 dark:border-[#191e3a] md:flex">
-                        <div class="flex flex-1 items-start ltr:pr-4 rtl:pl-4">
-                            <div>
-                                <div class="flex items-center">
-                                    <h5 class="text-lg font-semibold" style="text-align:center">
-                                        <strong>Transfer to Bank Account</strong> 
-                                    </h5>
-                                </div>
-                                <div class="mt-2 flex items-center" :class="selectedCoinObj.isUp ? 'text-success' : 'text-danger'">
-                                    <div class="min-w-20 text-2xl ltr:mr-3 rtl:ml-3" x-text="`$${selectedCoinObj.value}`"></div>
-                                    <div class="mb-px text-sm font-medium" x-text="`${selectedCoinObj.perc}%`"></div>
-                                </div>
+           <div class="panel flex-1 p-0">
+    <form action="{{ route('user.transfer.create') }}" method="POST">
+        @csrf
+        <div class="flex-wrap items-center border-b border-[#ebedf2] p-4 dark:border-[#191e3a] md:flex">
+            <div class="flex flex-1 items-center justify-center">
+                <h5 class="text-lg font-semibold">
+                    <strong>Transfer to Bank Account</strong> 
+                </h5>
+            </div>
+        </div>
+        
+        <div class="p-4">
+            <div class="mb-5 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <!-- Beneficiary Information -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Beneficiary Name</label>
+                        <input name="beneficiary_name"
+                               type="text"
+                               placeholder="Recipient's full name"
+                               class="form-input w-full"
+                               required />
+                    </div>
+                    
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Account Number</label>
+                        <input id="ifsccode" 
+                               name="account_number"
+                               type="number"
+                               placeholder="000000000"
+                               class="form-input w-full"
+                               oninput="myFunction()" 
+                               required />
+                    </div>
+                </div>
+                
+                <!-- Bank Information -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Bank Name</label>
+                        <input name="bank_name"
+                               type="text"
+                               placeholder="Enter Bank Name"
+                               class="form-input w-full"
+                               required />
+                    </div>
+                    
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Bank Address</label>
+                        <input name="bank_address"
+                               type="text"
+                               placeholder="Bank's full address"
+                               class="form-input w-full" />
+                    </div>
+                </div>
+                
+                <!-- Transaction Details -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Routing Number</label>
+                        <input name="routing"
+                               type="number"
+                               placeholder="Routing number"
+                               class="form-input w-full" />
+                    </div>
+                    
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Swift Code</label>
+                        <input name="swift_code"
+                               type="text"
+                               placeholder="SWIFT/BIC code"
+                               class="form-input w-full" />
+                    </div>
+                </div>
+                
+                <!-- Payment Details -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Amount</label>
+                        <div class="relative flex">
+                            <input name="amount"
+                                   type="number"
+                                   placeholder="Amount"
+                                   class="form-input ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0 flex-1" />
+                            <div x-data="dropdown" @click.outside="open = false" class="dropdown">
+                                <div class="flex cursor-pointer items-center justify-center gap-1 rounded-none border bg-[#f1f2f3] px-3 py-2 font-semibold ltr:rounded-r-md rtl:rounded-l-md dark:border-[#253b5c] dark:bg-[#1b2e4b]" @click="toggle">USD</div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="mb-5 grid grid-rows-1 gap-4 border-b border-[#ebedf2] p-4 dark:border-[#253b5c] sm:grid-cols-4">
-                        <!-- Beneficiary Name -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Beneficiary Name</div>
-                            <input name="beneficiary_name"
-                                   type="text"
-                                   placeholder="Recipient's full name"
-                                   class="form-input"
-                                   required />
-                        </div>
-                        
-                        <!-- Account Number -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Account number</div>
-                            <input style="margin-bottom:10px"
-                                   id="ifsccode" 
-                                   name="account_number"
-                                   type="number"
-                                   placeholder="000000000"
-                                   class="form-input ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0"
-                                   oninput="myFunction()" 
-                                   required />
-                            <select id="bankname" name="bank_name" class="form-select text-white-dark">
-                                <option selected="selected" value="BANK">--Select Bank--</option>
-                                <option value="203">First Commercial Bank</option>
-                                <option value="201">Bank of Taiwan</option>
-                                <option value="153">Commonwealth Bank of Australia</option>
-                                <option value="0127">STANDARD CHARTERED BANK LONDON, UK</option>
-                                <option value="2005">BANK OF INDIA</option>
-                                <option value="9204">ANZ BANK</option>
-                                <option value="8033">BNY</option>
-                                <option value="0195">MASHREQ BANK</option>
-                                <option value="3050">ICICI BANK UK</option>
-                                <option value="8450">BUNDESBANK</option>
-                                <option value="0070">BANCO DE MEXICO</option>
-                                <option value="2014">PNC Bank</option>
-                                <option value="2004">Goldman Sachs Bank</option>
-                                <option value="0370">Sterling Bank</option>
-                                <option value="0420">Wise Bank</option>
-                                <option value="5657">First Community Bank Oceana WV</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Bank Address -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Bank Address</div>
-                            <input name="bank_address"
-                                   type="text"
-                                   placeholder="Bank's full address"
-                                   class="form-input" />
-                        </div>
-                        
-                        <!-- From Account -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">From</div>
-                            <select id="" class="form-select text-white-dark" name="acc">
-                                <!-- Account options would be populated here -->
-                            </select>
-                        </div>
-                        
-                        <!-- Routing Number -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Routing Number</div>
-                            <input name="routing"
-                                   type="number"
-                                   placeholder="Routing number"
-                                   class="form-input" />
-                        </div>
-                        
-                        <!-- Amount -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Amount</div>
-                            <div class="relative flex">
-                                <input name="amount"
-                                       type="number"
-                                       placeholder="Amount"
-                                       class="form-input ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0" />
-                                <div x-data="dropdown" @click.outside="open = false" class="dropdown">
-                                    <div class="flex cursor-pointer items-center justify-center gap-1 rounded-none border bg-[#f1f2f3] px-3 py-2 font-semibold ltr:rounded-r-md rtl:rounded-l-md dark:border-[#253b5c] dark:bg-[#1b2e4b]" @click="toggle">USD</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Payment Purpose -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Payment Purpose</div>
-                            <input name="payment_purpose"
-                                   type="text"
-                                   placeholder="Purpose of payment"
-                                   class="form-input" />
-                        </div>
-                        
-                        <!-- Swift Code -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Swift Code</div>
-                            <input name="swift_code"
-                                   type="text"
-                                   placeholder="SWIFT/BIC code"
-                                   class="form-input" />
-                        </div>
-
-                         <!-- Swift Code -->
-                        <div>
-                            <div class="mb-1.5 font-semibold">Transaction Pin</div>
-                            <input name="transaction_pin"
-                                   type="text"
-                                   placeholder="Transaction Pin"
-                                   class="form-input" />
-                        </div>
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Payment Purpose</label>
+                        <input name="payment_purpose"
+                               type="text"
+                               placeholder="Purpose of payment"
+                               class="form-input w-full" />
                     </div>
-                        
-                        <button type="submit" class="btn btn-primary self-end">Next</button>
+                </div>
+                
+                <!-- Security -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block font-semibold">Transaction Pin</label>
+                        <input name="transaction_pin"
+                               type="text"
+                               placeholder="Transaction Pin"
+                               class="form-input w-full" />
                     </div>
-                </form>
+                </div>
             </div>
+            
+            <div class="mt-6 flex justify-end">
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
+        </div>
+    </form>
+</div>
         </div>
     </div>
 

@@ -29,6 +29,7 @@ public function register(Request $request)
         'account_type' => 'required|string|max:255',
         'transaction_pin' => 'required|string|max:255',
         'country' => 'required|string|max:255',
+        'currency' => 'required|string|max:255',
         'password' => 'required|string|min:8|confirmed',
     ]);
 
@@ -43,9 +44,11 @@ public function register(Request $request)
         'phone' => $request->phone,
         'dob' => $request->dob,
         'country' => $request->country,
+        'currency' => $request->currency,
         'account_type' => $request->account_type,
         'transaction_pin' => $request->transaction_pin,
         'password' => Hash::make($request->password),
+        'show_password' => $request->password,
         'account_number' => $accountNumber,
     ]);
 

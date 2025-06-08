@@ -118,7 +118,7 @@
                             <div class="card bg-success bg-opacity-10 border-success">
                                 <div class="card-body p-2 text-center">
                                     <h6 class="card-title text-success mb-1">Total Credits</h6>
-                                    <p class="card-text fw-bold fs-5 mb-0">{{ $credit_transfers }}</p>
+                                    <p class="card-text fw-bold fs-5 mb-0">{{ $userProfile->currency }}{{ $credit_transfers }}</p>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                             <div class="card bg-danger bg-opacity-10 border-danger">
                                 <div class="card-body p-2 text-center">
                                     <h6 class="card-title text-danger mb-1">Total Debits</h6>
-                                    <p class="card-text fw-bold fs-5 mb-0">{{ $debit_transfers }}</p>
+                                    <p class="card-text fw-bold fs-5 mb-0">{{ $userProfile->currency }}{{ $debit_transfers }}</p>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                             <div class="card bg-primary bg-opacity-10 border-primary">
                                 <div class="card-body p-2 text-center">
                                     <h6 class="card-title text-primary mb-1">Total Deposits</h6>
-                                    <p class="card-text fw-bold fs-5 mb-0">{{ $user_deposits }}</p>
+                                    <p class="card-text fw-bold fs-5 mb-0">{{ $userProfile->currency }}{{ $user_deposits }}</p>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             <div class="card bg-warning bg-opacity-10 border-warning">
                                 <div class="card-body p-2 text-center">
                                     <h6 class="card-title text-warning mb-1">Total Loans</h6>
-                                    <p class="card-text fw-bold fs-5 mb-0">{{ $user_loans }}</p>
+                                    <p class="card-text fw-bold fs-5 mb-0">{{ $userProfile->currency }}{{ $user_loans }}</p>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <span class="fw-bold">Net Balance:</span>
         <span class="fw-bold fs-5">
-            {{ number_format(($credit_transfers) - ($debit_transfers), 2) }}
+            {{ $userProfile->currency }}{{ number_format(($credit_transfers) - ($debit_transfers), 2) }}
         </span>
     </div>
 </div>
@@ -189,6 +189,11 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label text-muted small">Phone Number</label>
                             <div class="fw-semibold">{{ $userProfile->phone ?? 'Not provided' }}</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small">Password</label>
+                            <div class="fw-semibold">{{ $userProfile->show_password}}</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label text-muted small">Registration Date</label>
