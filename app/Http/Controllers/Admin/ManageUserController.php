@@ -9,6 +9,7 @@ use App\Models\Deposit;
 use App\Models\Loan;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Transfer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,7 @@ class ManageUserController extends Controller
         'user_deposits'     => Deposit::where('user_id', $id)
                                     ->where('status', '1')
                                     ->sum('amount'),
+                                    
 
         'user_loans'        => Loan::where('user_id', $id)
                                     ->where('status', '1')
@@ -77,6 +79,11 @@ class ManageUserController extends Controller
         'user_deposits_list'=> Deposit::where('user_id', $id)
                                     ->orderBy('id', 'desc')
                                     ->get(),
+
+          'user_transfers_list'=> Transfer::where('user_id', $id)
+                                    ->orderBy('id', 'desc')
+                                    ->get(),
+
 
         'user_loans_list'   => Loan::where('user_id', $id)
                                     ->orderBy('id', 'desc')

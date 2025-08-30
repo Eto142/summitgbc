@@ -226,6 +226,12 @@
                     <i class="fas fa-exchange-alt me-2"></i> Transactions
                 </button>
             </li>
+
+             <li class="nav-item" role="presentation">
+                <button class="nav-link px-4 py-3 fw-bold text-success hover-border-success" id="transfers-tab" data-bs-toggle="tab" data-bs-target="#transfers" type="button" role="tab">
+                    <i class="fas fa-money-bill-wave me-2"></i> Transfers
+                </button>
+            </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link px-4 py-3 fw-bold text-success hover-border-success" id="deposits-tab" data-bs-toggle="tab" data-bs-target="#deposits" type="button" role="tab">
                     <i class="fas fa-money-bill-wave me-2"></i> Deposits
@@ -412,6 +418,99 @@
                                 </div>
                             @endif
                         </div>
+
+
+
+
+                       <!-- Transfers Tab -->
+<div class="tab-pane fade" id="transfers" role="tabpanel">
+    @if(count($user_transfers_list) > 0)
+        <div class="table-responsive">
+            <table class="table table-hover table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Beneficiary</th>
+                        <th>Bank</th>
+                        <th>Reference</th>
+                        <th>Status</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($user_transfers_list as $transfer)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($transfer->created_at)->format('M d, Y h:i A') }}</td>
+                        <td class="fw-bold">${{ number_format($transfer->amount, 2) }}</td>
+                        <td>{{ $transfer->beneficiary_name }}</td>
+                        <td>{{ $transfer->bank_name }}</td>
+                        <td><code>{{ $transfer->transaction_id ?? 'N/A' }}</code></td>
+                        <td>
+                            <span class="badge bg-{{ $transfer->status == '1' ? 'success' : ($transfer->status == '2' ? 'danger' : 'warning') }}">
+                                @if($transfer->status == '1') Approved
+                                @elseif($transfer->status == '2') Declined
+                                @else Pending
+                                @endif
+                            </span>
+                        </td>
+                        <td>
+                            <!-- Approve Button -->
+                            <form action="{{ route('admin.approve-transfer', $transfer->id) }}" method="POST" class="me-2 d-inline">
+                                @csrf
+                                <input type="hidden" name="status" value="1">
+                                <input type="hidden" name="user_id" value="{{ $userProfile->id }}">
+                                <input type="hidden" name="email" value="{{ $userProfile->email }}">
+                                <input type="hidden" name="amount" value="{{ $transfer->amount }}">
+                                <button class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Approve">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- Decline Button -->
+                            <form action="{{ route('admin.decline-transfer', $transfer->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <input type="hidden" name="status" value="2">
+                                <input type="hidden" name="user_id" value="{{ $userProfile->id }}">
+                                <input type="hidden" name="email" value="{{ $userProfile->email }}">
+                                <input type="hidden" name="amount" value="{{ $transfer->amount }}">
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Decline">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination (if you want real pagination, switch to paginate() in controller) -->
+        <div class="d-flex justify-content-end mt-2">
+            <nav aria-label="Transfers pagination">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    @else
+        <div class="alert alert-info mt-3 mb-0">
+            <i class="fas fa-info-circle me-2"></i> No transfers found for this user.
+        </div>
+    @endif
+</div>
+
+
+
                         
                         <!-- Loans Tab -->
                         <div class="tab-pane fade" id="loans" role="tabpanel">

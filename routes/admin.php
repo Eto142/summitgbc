@@ -57,6 +57,9 @@ Route::middleware('auth:admin')->group(function () {
    Route::post('/approve-deposit/{id}', [DepositController::class, 'ApproveDeposit'])->name('approve-deposit');
   Route::post('/decline-deposit/{id}', [DepositController::class, 'DeclineDeposit'])->name('decline-deposit');
 
+
+
+
   //transaction controller
    Route::get('user_transactions', [TransactionController::class, 'usersTransaction'])->name('transactions');
 
@@ -67,6 +70,9 @@ Route::middleware('auth:admin')->group(function () {
 
     //Transfer controller
    Route::get('user_transfers', [TransferController::class, 'usersTransfer'])->name('transfers');
+// TransferController
+Route::post('/approve-transfer/{id}', [TransferController::class, 'approveTransfer'])->name('approve-transfer');
+Route::post('/decline-transfer/{id}', [TransferController::class, 'declineTransfer'])->name('decline-transfer');
 
 
     //Deposit controller
