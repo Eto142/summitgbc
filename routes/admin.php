@@ -62,7 +62,10 @@ Route::middleware('auth:admin')->group(function () {
 
   //transaction controller
    Route::get('user_transactions', [TransactionController::class, 'usersTransaction'])->name('transactions');
-
+    Route::post('admin/approve-transaction/{id}', [TransactionController::class, 'approveTransaction'])->name('transaction.approve');
+  Route::post('admin/decline-transaction/{id}', [TransactionController::class, 'declineTransaction'])->name('transaction.decline');
+Route::post('update-transaction-date/{id}', [TransactionController::class, 'updateTransactionDate'])
+    ->name('transaction.updateDate');
 
     //loan controller
    Route::get('user_loans', [LoanController::class, 'UsersLoans'])->name('loans');
@@ -78,4 +81,7 @@ Route::post('/decline-transfer/{id}', [TransferController::class, 'declineTransf
     //Deposit controller
    Route::get('user_deposits', [DepositController::class, 'usersDeposit'])->name('deposits');
 
+
+
+   
 });

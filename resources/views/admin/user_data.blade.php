@@ -290,13 +290,43 @@
                                                         {{ $transaction->transaction_status == '1' ? 'Completed' : 'Pending' }}
                                                     </span>
                                                 </td>
+
+
+                                                  <!-- Update Date -->
+                                    {{-- <td>
+                                        <form action="{{ route('admin.transaction.updateDate', $transaction->id) }}" method="POST">
+                                            @csrf
+                                            <input type="datetime-local" name="new_date" class="form-control form-control-sm" value="{{ \Carbon\Carbon::parse($transaction->created_at)->format('Y-m-d\TH:i') }}">
+                                            <button type="submit" class="btn btn-primary btn-sm mt-1 mt-sm-0">Update Date</button>
+                                        </form>
+                                    </td> --}}
+
+
                                                 <td>
-                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
+
+                                                    <div class="d-flex gap-2 flex-wrap">
+                                            <!-- Approve Button -->
+                                            <form action="{{ route('admin.transaction.approve', $transaction->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success btn-sm d-flex align-items-center gap-1">
+                                                    <i class="bi bi-check"></i> Approve
+                                                </button>
+                                            </form>
+
+                                            <!-- Decline Button -->
+                                            <form action="{{ route('admin.transaction.decline', $transaction->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1">
+                                                    <i class="bi bi-x"></i> Decline
+                                                </button>
+                                            </form>
+                                        </div>
+                                                    {{-- <button class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Details">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <button class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
                                                         <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    </button> --}}
                                                 </td>
                                             </tr>
                                             @endforeach
