@@ -29,6 +29,12 @@
             {{-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addLoanModal">
                 <i class="fas fa-hand-holding-usd me-1"></i> Add Loan
             </button> --}}
+
+             <!-- Button -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#activateUserModal">
+    <i class="fas fa-user-shield me-1"></i> Activate/Deactivate User
+</button>
+
             <button class="btn btn-info">
                 <i class="fas fa-broom me-1"></i> Clear Account
             </button>
@@ -81,11 +87,15 @@
                         </span>
                     </div>
                     <h3 class="mb-1">{{ $userProfile->name }}</h3>
+                                               <p class="text-muted mb-3">
+    Account Status:
+    {{ $userProfile->user_status == 1 ? 'Account Restricted' : 'Not Restricted' }}
+</p>
                     <p class="text-muted mb-3">{{ $userProfile->email }}</p>
                       <p class="text-muted mb-3">Account Number:{{ $userProfile->account_number }}</p>
                         <p class="text-muted mb-3">Account Type:{{ $userProfile->account_type }}</p>
                           <p class="text-muted mb-3">Transaction Pin:{{ $userProfile->transaction_pin }}</p>
-                    
+
                     <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
                         <a href="mailto:{{ $userProfile->email }}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-envelope me-1"></i> Email
@@ -632,6 +642,49 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Activate/Deactivate User Modal -->
+<div class="modal fade" id="activateUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Activate / Deactivate User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+           <form action="{{ route('admin.user.status.update') }}" method="POST">
+    @csrf
+
+    <input type="hidden" name="id" value="{{ $userProfile->id }}">
+
+    <div class="modal-body">
+        <label class="form-label">Account Status</label>
+        <select name="user_status" class="form-control" required>
+            <option value="0" {{ $userProfile->user_status == 0 ? 'selected' : '' }}>
+                Not Restricted
+            </option>
+
+            <option value="1" {{ $userProfile->user_status == 1 ? 'selected' : '' }}>
+                Restricted
+            </option>
+        </select>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Update Status</button>
+    </div>
+</form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <!-- Credit User Modal -->
 <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-hidden="true">

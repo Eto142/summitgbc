@@ -40,6 +40,8 @@ Route::middleware('auth:admin')->group(function () {
   Route::get('/show', [ManageUserController::class, 'ShowUsers'])->name('show'); // becomes 'admin.user'
   Route::get('/profile/{id}/', [ManageUserController::class, 'userProfile'])->name('profile');
   Route::delete('/delete/{id}', [ManageUserController::class, 'deleteUser'])->name('delete');
+  Route::post('/admin/user/status/update', [ManageUserController::class, 'updateUserStatus'])
+    ->name('user.status.update');
 
 
   Route::prefix('admin/mail')->group(function() {

@@ -109,4 +109,21 @@ class ManageUserController extends Controller
 }
 
 
+
+public function updateUserStatus(Request $request)
+{
+    $request->validate([
+        'id' => 'required|exists:users,id',
+        'user_status' => 'required|in:0,1',
+    ]);
+
+    User::where('id', $request->id)->update([
+        'user_status' => $request->user_status
+    ]);
+
+    return back()->with('status', 'User status updated successfully!');
+}
+
+
+
 }
